@@ -6,6 +6,7 @@
 //  Copyright © 2018 Emerson Malca. All rights reserved.
 //
 
+#import "Tweet.h"
 #import "APIManager.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
