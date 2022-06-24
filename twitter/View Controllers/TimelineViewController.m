@@ -13,9 +13,11 @@
 #import "TweetCell.h"
 #import "User.h"
 #import "Tweet.h"
+#import "ComposeViewController.h"
 
 
-@interface TimelineViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+
 
 @property (strong, nonatomic) NSMutableArray *myTweets;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -32,7 +34,6 @@
     
     [[APIManager shared] logout];
 }
-
 
 
 - (void)viewDidLoad {
@@ -69,12 +70,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    appDelegate.window.rootViewController = loginViewController;
-    [[APIManager shared] logout];
 }
+
 
 /*
 #pragma mark - Navigation
@@ -86,10 +83,11 @@
 }
 */
 
+
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     Tweet *tweet = self.myTweets[indexPath.row];
-    
+    cell.tweet = tweet;
     cell.dateLabel.text = tweet.createdAtString;
     cell.userName.text = tweet.user.name;
     cell.profileName.text = tweet.user.screenName;
@@ -104,9 +102,15 @@
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 141;
+}
+
+
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.myTweets.count;
 }
+
 
 // Makes a network request to get updated data
 // Updates the tableView with the new data
@@ -129,5 +133,13 @@
     // Tell the refreshControl to stop spinning
     [refreshControl endRefreshing];
 }
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+   UINavigationController *navigationController = [segue destinationViewController];
+   ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+   composeController.delegate = self;
+}
+
 
 @end
