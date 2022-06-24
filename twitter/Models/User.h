@@ -6,7 +6,7 @@
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *screenName;
-@property (nonatomic, strong) NSString *profilePicture;
+@property (nonatomic, strong) NSURL *profilePictureURL;
+@property (nonatomic, strong) UIImage *profileImage;
+
 
 // Create initializer
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

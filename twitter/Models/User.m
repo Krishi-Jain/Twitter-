@@ -6,7 +6,6 @@
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "User.h"
 
 @interface User()
@@ -23,7 +22,10 @@
     if (self) {
         self.name = dictionary[@"name"];
         self.screenName = dictionary[@"screen_name"];
-        self.profilePicture = dictionary[@"profile_image_url_https"];
+        self.profilePictureURL = [NSURL URLWithString:dictionary[@"profile_image_url_https"]];
+        
+        NSData *urlData = [NSData dataWithContentsOfURL:self.profilePictureURL];
+        self.profileImage = [UIImage imageWithData:urlData];
     }
     return self;
 }

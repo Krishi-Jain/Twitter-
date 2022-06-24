@@ -18,6 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.TweetTextBox.text = @"";
+    [self.TweetTextBox.layer setBorderColor:[UIColor grayColor].CGColor];
+    [self.TweetTextBox.layer setBorderWidth:2];
+    [self.TweetTextBox.layer setCornerRadius:5];
 }
 
 - (IBAction)closeAction:(id)sender {
@@ -25,7 +29,7 @@
 }
 
 - (IBAction)tweetAction:(id)sender {
-    [[APIManager shared]postStatusWithText:@"This is my tweet 😀" completion:^(Tweet *tweet, NSError *error) {
+    [[APIManager shared]postStatusWithText:self.TweetTextBox.text completion:^(Tweet *tweet, NSError *error) {
         if(error){
             NSLog(@"Error composing Tweet: %@", error.localizedDescription);
         }
@@ -33,6 +37,7 @@
             [self.delegate didTweet:tweet];
             NSLog(@"Compose Tweet Success!");
         }
+        [self dismissViewControllerAnimated:true completion:nil];
     }];
 }
 
