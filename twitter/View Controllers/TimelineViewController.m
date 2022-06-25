@@ -25,6 +25,7 @@
 @end
 
 @implementation TimelineViewController
+
 - (IBAction)didTapLogout:(id)sender {
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -109,6 +110,11 @@
     return self.myTweets.count;
 }
 
+
+- (void)didTweet:(Tweet *)tweet {
+    [self.myTweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
+}
 
 // Makes a network request to get updated data
 // Updates the tableView with the new data
