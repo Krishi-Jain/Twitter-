@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) NSURL *profilePictureURL;
-@property (nonatomic, strong) UIImage *profileImage;
+@property (nonatomic, strong) NSString *profileImage;
 
 
 // Create initializer

@@ -14,6 +14,7 @@
 #import "User.h"
 #import "Tweet.h"
 #import "ComposeViewController.h"
+#import "DetailsViewController.h"
 
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -59,11 +60,12 @@
                 NSLog(@"%@", text);
             }
             self.myTweets = [NSMutableArray arrayWithArray:tweets];
-            [self.tableView reloadData];
+            //[self.tableView reloadData];
             
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        [self.tableView reloadData];
     }];
 }
 
@@ -98,6 +100,17 @@
     cell.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favorited];
     
     cell.profileImageView.image = tweet.user.profileImage;
+    if(cell.tweet.favorited) {
+        [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
+    } else {
+        [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+        
+    }
+    if(cell.tweet.retweeted) {
+        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+    } else {
+        [cell.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+    }
     return cell;
 }
 
@@ -140,9 +153,19 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-   UINavigationController *navigationController = [segue destinationViewController];
-   ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-   composeController.delegate = self;
+    if([[segue identifier] isEqualToString:@"composeSegue"]){
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
+    if([[segue identifier] isEqualToString:@"detailsSegue"]){
+        UINavigationController *navigationController = [segue destinationViewController];
+        DetailsViewController *detailsViewController = (DetailsViewController *)navigationController.topViewController;
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Tweet *tweet = self.myTweets[indexPath.row];
+        detailsViewController.tweet = tweet;
+    }
 }
 
 

@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Tweet.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailsViewController : UIViewController
+
+@property (strong, nonatomic) Tweet *tweet;
+@property (weak, nonatomic) IBOutlet UIButton *likeDetails;
+@property (weak, nonatomic) IBOutlet UIButton *retweetDetails;
 
 @end
 
