@@ -24,8 +24,8 @@
         self.screenName = dictionary[@"screen_name"];
         self.profilePictureURL = [NSURL URLWithString:dictionary[@"profile_image_url_https"]];
         
-        NSData *urlData = [NSData dataWithContentsOfURL:self.profilePictureURL];
-        self.profileImage = [UIImage imageWithData:urlData];
+        //NSData *urlData = [NSData dataWithContentsOfURL:self.profilePictureURL];
+        //self.profileImage = [UIImage imageWithData:urlData];
     }
     return self;
 }

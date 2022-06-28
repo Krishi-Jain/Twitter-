@@ -41,9 +41,9 @@
     self.likeCount.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
     self.date.text = self.tweet.createdAtString;
 
-    NSString *URLString = self.tweet.user.profileImage;
+    NSURL *url = self.tweet.user.profilePictureURL;
     //NSString *URLString = [self.tweet.user.profileImage stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
-    NSURL *url = [NSURL URLWithString:URLString];
+    //NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     //[self.profileImage setImageWithURL: urlNew];
     self.profileImage.image = [UIImage imageWithData:urlData];

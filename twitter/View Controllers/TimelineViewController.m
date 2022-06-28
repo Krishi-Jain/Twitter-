@@ -99,7 +99,10 @@
     cell.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     cell.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     
-    cell.profileImageView.image = tweet.user.profileImage;
+    NSURL *url = cell.tweet.user.profilePictureURL;
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    cell.profileImageView.image = [UIImage imageWithData:urlData];
+    
     if(cell.tweet.favorited) {
         [cell.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
     } else {
