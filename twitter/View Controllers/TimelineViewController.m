@@ -97,7 +97,7 @@
     cell.tweetText.text = tweet.text;
     
     cell.retweetCountLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-    cell.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favorited];
+    cell.likeCountLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     
     cell.profileImageView.image = tweet.user.profileImage;
     if(cell.tweet.favorited) {
